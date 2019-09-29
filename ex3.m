@@ -1,3 +1,6 @@
+clear;
+clc;
+
 eps = 0.001;
 
 a = randi([-10,10]);
@@ -34,7 +37,7 @@ for i = 1:size(tau)(2)
     xn = H * xs + phi;
     iter = 0;
     while norm(xs - xn) > eps
-        xs = xn;ex
+        xs = xn;
         xn = H * xs + phi;
         iter = iter + 1;
         er(i, iter) = norm(xs - xn) * q / (1 - q);
@@ -43,13 +46,9 @@ for i = 1:size(tau)(2)
 endfor
 
 x = zeros(size(er)(2),1);
-for i = i:size(er)(2)
+for i = 1:size(er)(2)
     x(i) = i;
 endfor
-size(x)
-size(er(1,:)')
-size(er(2,:)')
-size(er(3,:)')
 plot(x, er(1, :), x, er(2, :),x , er(3, :));
 legend ("tau=1/(2|A|)", "tau=1/(4|A|)", "tau=1/(8|A|)");
 
