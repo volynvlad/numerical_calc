@@ -2,12 +2,14 @@ clear;
 clc;
 
 n = 7; N = n**2;
-eps = 1.e-5;
+eps = 1.e-3;
 A = gallery('poisson', n);
 E = eye(size(A));
 f = rand(N, 1);
+numb = 1000;
 
 function [Err] = commom_method(B, A, f)
+    numb = 1000;
     inv_B = inv(B);
     D = inv_B * A;
     g = inv_B * f;
@@ -15,9 +17,9 @@ function [Err] = commom_method(B, A, f)
     r = D * x - g;
     err = norm(r) / norm(g);
     k = 0;
-    Err = zeros(1000, 1);
+    Err = zeros(numb, 1);
 
-    while err > eps && k < 1000
+    while err > eps && k < numb
         tau = (r' * r) / (( A * r)' * r);
         x = x - tau * r;
         r = D * x - g;
@@ -29,10 +31,7 @@ endfunction
 
 
 % method yakobi
-B = zeros(size(A));
-for i = 1:size(A)(1)
-    B(i, i) = A(i, i);
-endfor
+B = diag(diag(A));
 err_yakobi = commom_method(B, A, f);
 
 % method zeidelya
@@ -41,18 +40,17 @@ err_zeidelya = commom_method(B, A, f);
 
 % triag method
 
-diag_A = zeros(size(A));
-for i = 1:size(A)(1)
-    diag_A(i, i) = A(i, i);
-endfor
-R1 = triu(A) - diag_A .* eye(size(A)(1)) / 2;
-R2 = tril(A) - diag_A .* eye(size(A)(1)) / 2;
+R1 = triu(A) - diag(diag(A)) / 2;
+R2 = tril(A) - diag(diag(A)) / 2;
 B = (E + R1 / 2) * (E + R2 / 2);
 err_triag = commom_method(B, A, f);
 
-x = zeros(1000 ,1);
-for i = 1:1000
+x = zeros(numb ,1);
+for i = 1:numb
     x(i) = i;
 endfor
+size(err_yakobi);
+size(err_zeidelya);
+size(err_triag);
 plot(x, err_yakobi, x, err_zeidelya, x, err_triag);
 legend ("Jacoby", "Zeidel", "triag");
