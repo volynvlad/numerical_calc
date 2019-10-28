@@ -50,22 +50,26 @@ eq = (-1)**n * [1 (-1 * A(1, :))];
 eig_values = roots(eq);
 display(eig_values);
 
-eye_mat = eye(size(A));
+% display(sum(eig_values));
+% display(A(1,1));
+
 y = zeros(n, n);
-f = zeros(n, 1);
+eig_vectors = zeros(n, n);
 
 for i = 1:n
-  display(Gauss(A - eig_values(i) * eye_mat, f));
-  y(:, i) = Gauss(A - eig_values(i) * eye_mat, f);
+  for j = 1:n
+    y(j, i) = eig_values(i) ** (n - j);
+  endfor
+  eig_vectors(:, i) = S * y(:, i);
 endfor
 
 display(y);
 
-eig_vectors = S * y;
+% eig_vectors = S * y;
 display(eig_vectors);
 
 % check
-display("check")
+display("check");
 [vectors, D] = eigs(copy_A, n);
 values = diag(D);
 display(values);
