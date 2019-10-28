@@ -47,19 +47,21 @@ display(A);
 
 eq = (-1)**n * [1 (-1 * A(1, :))];
 
-display(eq);
-
 eig_values = roots(eq);
 display(eig_values);
 
-eye_mat = eye(n);
+eye_mat = eye(size(A));
 y = zeros(n, n);
+f = zeros(n, 1);
 
 for i = 1:n
-  y(:, i) = Gauss(A, eig_values(i) * A(:, i));
+  display(Gauss(A - eig_values(i) * eye_mat, f));
+  y(:, i) = Gauss(A - eig_values(i) * eye_mat, f);
 endfor
-x = S * y;
-eig_vectors = x;
+
+display(y);
+
+eig_vectors = S * y;
 display(eig_vectors);
 
 % check
