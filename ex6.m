@@ -39,7 +39,7 @@ for i = 1:n - 1
     endfor
   endif
   A = M_inv * A * M;
-  S = M * S;
+  S = S * M;
 endfor
 
 display(A);
@@ -74,3 +74,8 @@ display("check");
 values = diag(D);
 display(values);
 display(vectors);
+
+for i = 1:n
+  display(norm(copy_A * eig_vectors(:, i) - eye(n) * eig_values(i) * eig_vectors(:, i)));
+endfor 
+
