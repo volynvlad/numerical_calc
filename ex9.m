@@ -12,10 +12,10 @@ Y = X;
 [X,Y] = meshgrid(X,Y);
 #f1(X,Y)
 
-#contour(X, Y, f1(X,Y), [0,0])
-#hold on
-#contour(X, Y, f2(X,Y), [0,0])
-#hold off
+contour(X, Y, f1(X,Y), [0,0])
+hold on
+contour(X, Y, f2(X,Y), [0,0])
+hold on
 x0 = [3 3];
 f1_prim_x = @(x, y) -x + 1;
 f1_prim_y = @(x, y) 1;
