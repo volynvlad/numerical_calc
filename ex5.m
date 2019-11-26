@@ -58,7 +58,7 @@ r = f - A * x;
 for i = 1:n
     w(i,1) = r(i,1) / B(i,i);
 endfor
-t = dot(w, r) / dot(A * w, w);
+t = dot(w, r) / dot(A * w, r);
 x = x + t * w;
 k = 1;
 err(2, k) = norm(r) / norm(t);
