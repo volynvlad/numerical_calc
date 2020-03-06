@@ -1,6 +1,7 @@
 clear;
 clc;
 
+# Метод Рунге-Кутта
 # 4 variant
 
 f = @(x, u) x + 3 * u ./ x;
